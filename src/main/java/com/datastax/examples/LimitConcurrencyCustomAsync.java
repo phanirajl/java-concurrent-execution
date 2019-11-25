@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datastax.oss.driver.examples.concurrent;
+package com.datastax.examples;
 
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.bindMarker;
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.insertInto;
@@ -114,7 +114,7 @@ public class LimitConcurrencyCustomAsync {
         // If the lastFeature finishes with failure, the subsequent chained executions
         // will not be invoked. If you wish to alter that behaviour and recover from failure
         // add the exceptionally() call after whenComplete() of lastFeature.
-        lastFeature = lastFeature.thenCompose((ignored) -> executeInsert(session, pst, counter));
+        lastFeature = lastFeature.thenComposeAsync((ignored) -> executeInsert(session, pst, counter));
       }
     }
     return lastFeature;
